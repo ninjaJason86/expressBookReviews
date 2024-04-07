@@ -37,8 +37,10 @@ public_users.get('/author/:author', function (request, response) {
 
 // Get all books based on title
 public_users.get('/title/:title', function (request, response) {
-  //Write your code here
-  return response.status(300).json({ message: "Yet to be implemented" });
+  const { title } = request.params;
+  const booksByAuthor = Object.values(books).filter((item) => item.title === title);
+
+  return response.status(200).send(JSON.stringify(booksByAuthor, null, 3));
 });
 
 //  Get book review

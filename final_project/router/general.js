@@ -34,8 +34,9 @@ public_users.get('/', async (request, response) => {
 });
 
 // Get book details based on ISBN
-public_users.get('/isbn/:isbn', function (request, response) {
+public_users.get('/isbn/:isbn', async (request, response) => {
   const { isbn } = request.params;
+  const books = await getBooks();
   const book = books[isbn];
 
   if (!book) {

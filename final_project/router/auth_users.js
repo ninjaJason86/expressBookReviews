@@ -40,7 +40,7 @@ registered_users.post("/login", (request, response) => {
 
   // @ts-ignore
   request.session["authorization"] = { accessToken }
-  return response.status(200).send("User successfully logged in");
+  return response.status(200).send("Customer successfully logged in");
 });
 
 // Add a book review

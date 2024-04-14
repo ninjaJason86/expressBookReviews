@@ -47,8 +47,10 @@ public_users.get('/isbn/:isbn', async (request, response) => {
 });
 
 // Get book details based on author
-public_users.get('/author/:author', function (request, response) {
+public_users.get('/author/:author', async (request, response) => {
   const { author } = request.params;
+
+  const books = await getBooks();
   const booksByAuthor = Object.values(books).filter((item) => item.author === author);
 
   return response.status(200).send(JSON.stringify(booksByAuthor, null, 3));

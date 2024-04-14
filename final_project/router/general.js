@@ -15,7 +15,7 @@ public_users.post("/register", (request, response) => {
   }
 
   users.push({ "username": username, "password": password });
-  return response.status(200).json({ message: "User successfully registered. Now you can login" });
+  return response.status(200).json({ message: "Customer successfully registered. Now you can login" });
 });
 
 const getBooks = () => {

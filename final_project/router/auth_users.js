@@ -74,7 +74,7 @@ registered_users.delete("/auth/review/:isbn", (request, response) => {
 
   delete books[isbn].reviews[username];
 
-  return response.status(200).json({ message: `Review for book with title "${books[isbn].title}" deleted successfully` });
+  return response.status(200).json({ message: `Review for the book with ISBN "${isbn}", posted by "${username}" deleted.` });
 });
 
 module.exports.users = users;

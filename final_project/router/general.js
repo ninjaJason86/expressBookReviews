@@ -57,8 +57,9 @@ public_users.get('/author/:author', async (request, response) => {
 });
 
 // Get all books based on title
-public_users.get('/title/:title', function (request, response) {
+public_users.get('/title/:title', async (request, response) => {
   const { title } = request.params;
+  const books = await getBooks();
   const booksByAuthor = Object.values(books).filter((item) => item.title === title);
 
   return response.status(200).send(JSON.stringify(booksByAuthor, null, 3));

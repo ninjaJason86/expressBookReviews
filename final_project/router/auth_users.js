@@ -45,8 +45,21 @@ registered_users.post("/login", (request, response) => {
 
 // Add a book review
 registered_users.put("/auth/review/:isbn", (request, response) => {
-  //Write your code here
-  return response.status(300).json({ message: "Yet to be implemented" });
+  const { params: { isbn }, body: { review } } = request;
+
+  if (!review) {
+    return response.status(401).json({ message: "Invalid body" });
+  }
+
+  if (!books[isbn]) {
+    return response.status(404).json({ message: "Book not found" });
+  }
+
+  const { username } = request["user"];
+
+  books[isbn].reviews[username] = review;
+
+  return response.status(200).json({ message: "Review added successfully" });
 });
 
 module.exports.users = users;

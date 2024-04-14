@@ -7,11 +7,11 @@ public_users.post("/register", (request, response) => {
   const { username, password } = request.body;
 
   if (!username || !password) {
-    return response.status(404).json({ message: "Unable to register user." });
+    return response.status(401).json({ message: "Unable to register user." });
   }
 
   if (userExist(username)) {
-    return response.status(404).json({ message: "User already exists!" });
+    return response.status(401).json({ message: "User already exists!" });
   }
 
   users.push({ "username": username, "password": password });

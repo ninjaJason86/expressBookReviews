@@ -62,6 +62,21 @@ registered_users.put("/auth/review/:isbn", (request, response) => {
   return response.status(200).json({ message: `Review for book with title "${books[isbn].title}" added successfully` });
 });
 
+// delete a book review
+registered_users.delete("/auth/review/:isbn", (request, response) => {
+  const { params: { isbn } } = request;
+
+  if (!books[isbn]) {
+    return response.status(404).json({ message: "Book not found" });
+  }
+
+  const { username } = request["user"];
+
+  delete books[isbn].reviews[username];
+
+  return response.status(200).json({ message: `Review for book with title "${books[isbn].title}" deleted successfully` });
+});
+
 module.exports.users = users;
 
 

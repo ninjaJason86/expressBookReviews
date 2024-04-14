@@ -11,20 +11,42 @@ const userExist = (username) => {
   return !!userWithSameName
 }
 
-const authenticatedUser = (username, password) => { //returns boolean
-  //write code to check if username and password match the one we have in records.
+const authenticatedUser = (username, password) => {
+  const userWithSameNameAndPassword = users.find((user) => user.username === username && user.password === password);
+
+  return !!userWithSameNameAndPassword
 }
 
 //only registered users can login
-registered_users.post("/login", (req, res) => {
-  //Write your code here
-  return res.status(300).json({ message: "Yet to be implemented" });
+registered_users.post("/login", (request, response) => {
+  const { username, password } = request.body;
+
+  if (!authenticatedUser(username, password)) {
+    return response.status(208).json({ message: "Invalid Login. Check username and password" });
+  }
+
+  if (!authenticatedUser(username, password)) {
+    return response.status(40)
+  }
+
+  const accessToken = jwt.sign(
+    {
+      username,
+      password,
+    },
+    'access',
+    { expiresIn: 60 }
+  );
+
+  // @ts-ignore
+  request.session["authorization"] = { accessToken }
+  return response.status(200).send("User successfully logged in");
 });
 
 // Add a book review
-registered_users.put("/auth/review/:isbn", (req, res) => {
+registered_users.put("/auth/review/:isbn", (request, response) => {
   //Write your code here
-  return res.status(300).json({ message: "Yet to be implemented" });
+  return response.status(300).json({ message: "Yet to be implemented" });
 });
 
 module.exports.users = users;

@@ -59,7 +59,7 @@ registered_users.put("/auth/review/:isbn", (request, response) => {
 
   books[isbn].reviews[username] = review;
 
-  return response.status(200).json({ message: "Review added successfully" });
+  return response.status(200).json({ message: `Review for book with title "${books[isbn].title}" added successfully` });
 });
 
 module.exports.users = users;

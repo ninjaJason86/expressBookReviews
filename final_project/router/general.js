@@ -18,8 +18,18 @@ public_users.post("/register", (request, response) => {
   return response.status(200).json({ message: "User successfully registered. Now you can login" });
 });
 
+const getBooks = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(books);
+    }, 3000);
+  });
+}
+
 // Get the book list available in the shop
-public_users.get('/', function (request, response) {
+public_users.get('/', async (request, response) => {
+  const books = await getBooks();
+
   return response.status(200).send(JSON.stringify(books, null, 2));
 });
 
